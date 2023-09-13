@@ -1,0 +1,29 @@
+| Задание 44 |
+| --- |
+| В ячейке ниже представлен код генерирующий DataFrame, которая состоит всего из 1 столбца. Ваша задача перевести его в one hot вид. Сможете ли вы это сделать без get_dummies?
+
+import random
+lst = ['robot'] * 10
+lst += ['human'] * 10
+random.shuffle(lst)
+data = pd.DataFrame({'whoAmI'lst})
+data.head() |
+
+Решение :
+import random
+lst = ['robot'] * 10
+lst += ['human'] * 10
+random.shuffle(lst)
+data = pd.DataFrame({'whoAmI':lst})
+data.head()
+categories = data['whoAmI'].unique()
+one_hot_data = pd.DataFrame(columns=categories)
+
+for i, row in data.iterrows():
+    category = row['whoAmI']
+    one_hot_row = [1 if cat == category else 0 for cat in categories]
+    one_hot_data.loc[i] = one_hot_row
+
+one_hot_data.head()
+
+https://colab.research.google.com/drive/1k9Rrsssf3mxZzAbk3ngQpcElGaLirdW6?hl=ru#scrollTo=s8uygX2kXfd1
