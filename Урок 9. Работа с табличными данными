@@ -1,0 +1,19 @@
+import pandas as pd
+
+df = pd.read_csv('sample_data/california_housing_train.csv')
+
+df[
+    (df['population'] > 0) &
+    (df['population'] < 501)
+].median_house_value.mean()
+
+206799.95140186916
+
+min_population = df.population.min()
+df[
+    df['population'] == min_population
+].households.max()
+
+4.0
+
+https://colab.research.google.com/drive/1jPtcxdY9fAsoK8edZobKPITP9i5mIfbU#scrollTo=61oWVVtK-_FH
