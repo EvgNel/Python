@@ -1,0 +1,95 @@
+Задача 38: Дополнить телефонный справочник возможностью изменения и удаления данных. 
+Пользователь также может ввести имя или фамилию, и Вы должны реализовать функционал для изменения и удаления данных
+
+def show_file():
+    #Открытие справочника с выводом содержимого
+    with open('phonebook.txt', 'r', encoding='utf-8') as file:
+        book = file.read()
+    print (book)
+ 
+def find_data():
+    #Поиск в справочнике
+    with open('phonebook.txt', 'r', encoding='utf-8') as file:
+        book = file.read().split('\n')
+        temp = input('Поиск контакта : ')
+        for i in book:
+            if temp in i:
+                print(i)
+            else:
+                print('Нет такого контакта')
+def new_data():
+    #добавляет контакт в справочник
+    with open('phonebook.txt', 'a', encoding='utf-8') as file:
+        file.write(input('Введите новый контакт (в формате : Фамилия, Имя, Отчество, Номер телефона через пробел): '))
+        file.write('\n')
+    print('Контакт добавлен!')
+
+def delete_person():
+    #Удаляет данные
+    with open("phonebook.txt", "r", encoding="utf8" ) as file:
+        lines = file.readlines()
+        index = None
+        name = input('Какой контакт удаляем ?')
+        for i, line in enumerate(lines):
+            if name in line:
+                index = i
+                break
+
+        # Если строка найдена, удаляем ее из списка
+        if index is not None:
+            del lines[index]
+
+        # Записываем оставшиеся строки обратно в файл
+        with open('phonebook.txt', 'w', encoding="utf8") as file:
+            file.writelines(lines)
+        print('Контакт удален!')
+def change_person():
+    # Открываем файл и считываем его содержимое в список строк
+    with open('phonebook.txt', 'r', encoding="utf8") as f:
+        lines = f.readlines()
+
+    # Находим индекс строки, которую нужно изменить
+    index = None
+    old = input('Контакт который нужно заменить: ')
+    for i, line in enumerate(lines):
+        if old in line:
+            index = i
+            break
+
+    # Если строка найдена, заменяем ее на новую строку
+    if index is not None:
+        new_line = input('Введите новый контакт (в формате : Фамилия, Имя, Отчество, Номер телефона через пробел: ')
+        lines[index] = new_line + '\n'
+
+    # Записываем измененные строки обратно в файл
+    with open('phonebook.txt', 'w', encoding="utf8") as f:
+        f.writelines(lines)
+    print('Контакт изменен!')
+while True:
+        print('Выбери функцию которую нужно выполнить:')
+        user_сhoice = input(
+        '\n1. Открытие Справочник'
+        '\n2. Поиск'
+        '\n3. Добавить контакт'
+        '\n4. Удалить контакт '
+        '\n5. Изменить контакт'
+        '\nq. Выйти'
+        '\n Ваш выбор:')
+        if user_сhoice == '1':
+            show_file()
+        elif user_сhoice == '2':
+            find_data()
+        elif user_сhoice == '3':
+            new_data()
+        elif user_сhoice == '4':
+            delete_person()
+        elif user_сhoice == '5':
+            change_person()
+        elif user_сhoice == 'q':
+            print('До встречи!')
+            break
+
+содержание phonebook.txt
+Сидоров Иван Сергеевич +375290000000
+Петров Сергей Иванович +375297777777
+
